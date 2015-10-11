@@ -14,6 +14,7 @@ ede-projects.el
 custom.el
 places
 .smex-items
+smex-items
 savefile/
 /prelude-modules.el
 projectile-bookmarks.eld
@@ -21,3 +22,4 @@ session*
 .cask
 tramp
 /var/pcache
+ac-comphist.dat
