@@ -1,25 +1,18 @@
+(global-linum-mode 1)
+(setq linum-format "%4d \u2502")
+(require 'hlinum)
+(hlinum-activate)
+
 (prelude-require-packages '(smex))
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-(ac-config-default)
 
-;; Rust Completion
-(add-hook 'rust-mode-hook #'racer-mode)
-(add-hook 'racer-mode-hook #'eldoc-mode)
+(prelude-require-packages '(2048-game flycheck-ghcmod flycheck-haskell ghc company-flx company-ghc company-ghci))
 
-(defun my/racer-mode-hook ()
-  (ac-racer-setup))
-(add-hook 'racer-mode-hook 'my/racer-mode-hook)
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
-(custom-set-variables
- '(racer-cmd (expand-file-name "/usr/local/bin/racer"))
- '(racer-rust-src-path (expand-file-name "~/Downloads/rustc/src/")))
-
-(require 'smartparens-config)
-
-(require 'autopair)
-(autopair-global-mode) ;; enable autopair in all buffers
-(add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-to-list 'company-backends '(company-ghc :with company-dabbrev-code))
